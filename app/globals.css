@@ -71,8 +71,12 @@ h1 em, h2 em { color: var(--rose); font-style: italic; }
 .framed-memory-4 { transform: rotate(-3deg); }
 .frame-image { aspect-ratio: 4 / 5; overflow: hidden; }
 .frame-image img { height: 100%; object-fit: cover; width: 100%; }
-.framed-memory figcaption { color: #584844; font-family: Georgia, serif; font-size: .72rem; line-height: 1.35; padding: .8rem .2rem 0; }
-.framed-memory-6 .frame-image { aspect-ratio: 4 / 3; }
+  .framed-memory figcaption { color: #584844; font-family: Georgia, serif; font-size: .72rem; line-height: 1.35; padding: .8rem .2rem 0; }
+  .image-picker { align-items: center; border-top: 1px solid rgba(88,72,68,.18); color: #584844; cursor: pointer; display: flex; font-size: .6rem; gap: .35rem; letter-spacing: .08em; margin-top: .8rem; padding: .65rem .2rem 0; text-transform: uppercase; }
+  .image-picker svg { height: 13px; width: 13px; }
+  .image-picker input { height: 1px; opacity: 0; position: absolute; width: 1px; }
+  .image-picker:focus-within { outline: 2px solid var(--rose); outline-offset: 3px; }
+  .framed-memory-6 .frame-image { aspect-ratio: 4 / 3; }
 @media (min-width: 681px) { .memory-frame-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .framed-memory-2, .framed-memory-5 { margin-top: 2rem; } }
 
 .final-panel { align-items: center; display: grid; gap: 11%; grid-template-columns: 1.05fr .95fr; padding: 10vw; }

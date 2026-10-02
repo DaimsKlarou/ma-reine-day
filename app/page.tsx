@@ -1,6 +1,7 @@
 'use client'
 
-import { ChevronDown, Heart, Stethoscope } from 'lucide-react'
+import { useState } from 'react'
+import { ChevronDown, Heart, ImagePlus, Stethoscope } from 'lucide-react'
 
 const photos = [
   '/melissa/WhatsApp Image 2026-10-02 at 8.04.02 PM.jpeg',
@@ -45,6 +46,19 @@ const captions = [
 ]
 
 export default function Page() {
+  const [customImages, setCustomImages] = useState<Record<number, string>>({})
+
+  function changeCardImage(index: number, file?: File) {
+    if (!file || !file.type.startsWith('image/')) return
+    const reader = new FileReader()
+    reader.onload = () => {
+      if (typeof reader.result === 'string') {
+        setCustomImages((current) => ({ ...current, [index]: reader.result as string }))
+      }
+    }
+    reader.readAsDataURL(file)
+  }
+
   return (
     <main className="tribute-page">
       <section className="hero-panel snap-section">
@@ -87,9 +101,14 @@ export default function Page() {
         <div className="film-heading"><p className="eyebrow">Nos souvenirs précieux</p><h2>Des images<br /><em>qui restent.</em></h2><p>Quelques instants choisis pour raconter la femme, la maman et l’amour de ma vie.</p></div>
         <div className="memory-frame-grid" aria-label="Sélection de souvenirs de Melissa">
           {[{ photo: '/melissa/WhatsApp Image 2026-10-02 at 8.04.05 PM (2).jpeg', caption: 'Nous deux, dans notre plus belle complicité.' }, { photo: photos[13], caption: 'Entourés de ceux qui nous aiment.' }, { photo: photos[14], caption: 'Petite déjà, avec ce sourire unique.' }, { photo: photos[15], caption: 'Une enfance pleine de malice.' }, { photo: photos[16], caption: 'La médecin au grand cœur.' }, { photo: photos[17], caption: 'Notre petit trésor.' }].map((memory, index) => (
-            <figure className={`framed-memory framed-memory-${index + 1}`} key={memory.photo}>
-              <div className="frame-image"><img src={memory.photo} alt={memory.caption} loading="lazy" /></div>
+            <figure className={`framed-memory framed-memory-${index + 1}`} key={memory.caption}>
+              <div className="frame-image"><img src={customImages[index] ?? memory.photo} alt={memory.caption} loading="lazy" /></div>
               <figcaption>{memory.caption}</figcaption>
+              <label className="image-picker">
+                <ImagePlus aria-hidden="true" />
+                <span>Changer la photo</span>
+                <input type="file" accept="image/*" onChange={(event) => changeCardImage(index, event.target.files?.[0])} />
+              </label>
             </figure>
           ))}
         </div>
