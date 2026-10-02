@@ -1,0 +1,81 @@
+'use client'
+
+import { ChevronDown, Heart, Stethoscope } from 'lucide-react'
+
+const photos = [
+  '/melissa/WhatsApp Image 2026-10-02 at 8.04.02 PM.jpeg',
+  '/melissa/WhatsApp Image 2026-10-02 at 8.04.02 PM (1).jpeg',
+  '/melissa/WhatsApp Image 2026-10-02 at 8.04.02 PM (2).jpeg',
+  '/melissa/WhatsApp Image 2026-10-02 at 8.04.03 PM.jpeg',
+  '/melissa/WhatsApp Image 2026-10-02 at 8.04.03 PM (1).jpeg',
+  '/melissa/WhatsApp Image 2026-10-02 at 8.04.03 PM (2).jpeg',
+  '/melissa/WhatsApp Image 2026-10-02 at 8.04.04 PM.jpeg',
+  '/melissa/WhatsApp Image 2026-10-02 at 8.04.04 PM (1).jpeg',
+  '/melissa/WhatsApp Image 2026-10-02 at 8.04.04 PM (2).jpeg',
+  '/melissa/WhatsApp Image 2026-10-02 at 8.04.04 PM (3).jpeg',
+  '/melissa/WhatsApp Image 2026-10-02 at 8.04.05 PM.jpeg',
+  '/melissa/WhatsApp Image 2026-10-02 at 8.04.05 PM (1).jpeg',
+]
+
+const captions = [
+  'Neuf années à choisir ton sourire, encore et encore.',
+  'Ma plus belle histoire porte ton prénom.',
+  'Dans chaque instant simple, je retrouve notre bonheur.',
+  'Une femme de cœur, une présence qui apaise.',
+  'Tu prends soin du monde avec une douceur rare.',
+  'Mon endroit préféré sera toujours près de toi.',
+  'Les souvenirs deviennent précieux quand ils sont partagés.',
+  'Ta lumière accompagne chacun de mes jours.',
+  'Pour tous les moments de qualité à venir.',
+  'Une nouvelle page, la même merveilleuse aventure.',
+  'Je t’aime pour tout ce que tu es et tout ce que tu deviens.',
+  'Joyeux anniversaire, mon amour.',
+]
+
+export default function Page() {
+  return (
+    <main className="tribute-page">
+      <section className="hero-panel snap-section">
+        <div className="hero-copy">
+          <p className="eyebrow"><Heart aria-hidden="true" fill="currentColor" /> 02 octobre · notre histoire</p>
+          <h1>Pour toi,<br /><em>Melissa.</em></h1>
+          <p className="hero-intro">Une petite galerie de nos grands moments, pour célébrer la femme extraordinaire que tu es.</p>
+          <a className="scroll-cue" href="#memories"><span>Faire défiler</span><ChevronDown aria-hidden="true" /></a>
+        </div>
+        <div className="hero-photo-wrap">
+          <div className="hero-photo-frame">
+            <img src={photos[0]} alt="Melissa souriante" />
+          </div>
+          <span className="photo-note">la plus belle<br />de mes habitudes</span>
+        </div>
+        <div className="hero-mark">M <span>×</span> A</div>
+      </section>
+
+      <section className="story-panel snap-section" id="memories">
+        <div className="section-heading">
+          <div><p className="eyebrow">Notre chapitre préféré</p><h2>Des souvenirs<br /><em>à l’infini.</em></h2></div>
+          <p className="section-intro">9 ans de complicité,<br />de rires et de rêves<br />construits à deux.</p>
+        </div>
+        <div className="vertical-gallery" aria-label="Galerie de souvenirs">
+          {photos.slice(1, 7).map((photo, index) => (
+            <figure className={`memory-card ${index % 3 === 1 ? 'memory-card-offset' : ''}`} key={photo}>
+              <img src={photo} alt={captions[index + 1]} loading="lazy" />
+              <figcaption><span>0{index + 1}</span>{captions[index + 1]}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      <section className="doctor-panel snap-section">
+        <div className="doctor-image"><img src={photos[7]} alt="Melissa, médecin" loading="lazy" /><span className="doctor-stamp"><Stethoscope aria-hidden="true" /> soigner · aimer · transmettre</span></div>
+        <div className="doctor-copy"><p className="eyebrow">Ce que j’admire chez toi</p><h2>Un cœur<br /><em>qui soigne.</em></h2><p>Tu as choisi de prendre soin des autres. De ta famille, de tes amis, de tes patients. Ta vocation est belle parce qu’elle te ressemble : généreuse, attentive et profondément humaine.</p><div className="rule" /><p className="small-note">À la femme, à la médecin,<br />à la maman et à mon amour.</p></div>
+      </section>
+
+      <section className="final-panel snap-section" id="letter">
+        <div className="final-content"><div className="heart-orbit"><Heart aria-hidden="true" fill="currentColor" /></div><p className="eyebrow">Depuis 9 ans</p><h2>Joyeux<br /><em>anniversaire.</em></h2><p className="final-message">Que cette nouvelle année t’offre autant de bonheur, de douceur et de lumière que tu en donnes autour de toi. Je serai là pour chaque prochaine aventure.</p><p className="signature">Pour toujours, <span>ton amour</span></p></div>
+        <div className="final-photo"><img src={photos[11]} alt="Un souvenir heureux de Melissa" loading="lazy" /><span>avec tout mon amour</span></div>
+        <p className="footer-mark">M × M · 2017 — ∞</p>
+      </section>
+    </main>
+  )
+}
