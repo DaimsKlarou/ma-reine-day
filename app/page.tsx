@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ChevronDown, Heart, ImagePlus, Stethoscope } from 'lucide-react'
 
 const photos = [
@@ -46,17 +46,35 @@ const captions = [
 ]
 
 export default function Page() {
-  const [customImages, setCustomImages] = useState<Record<number, string>>({})
+  const [customImages, setCustomImages] = useState<Record<string, string>>({})
+  const [debugMode, setDebugMode] = useState(false)
 
-  function changeCardImage(index: number, file?: File) {
+  useEffect(() => {
+    setDebugMode(new URLSearchParams(window.location.search).get('debug') === '1')
+  }, [])
+
+  function changeCardImage(key: string, file?: File) {
     if (!file || !file.type.startsWith('image/')) return
     const reader = new FileReader()
     reader.onload = () => {
       if (typeof reader.result === 'string') {
-        setCustomImages((current) => ({ ...current, [index]: reader.result as string }))
+        setCustomImages((current) => ({ ...current, [key]: reader.result as string }))
       }
     }
     reader.readAsDataURL(file)
+  }
+
+  function editableImage(key: string, fallback: string, alt: string, loading?: 'lazy') {
+    return (
+      <>
+        <img src={customImages[key] ?? fallback} alt={alt} loading={loading} />
+        {debugMode && <label className="debug-image-picker">
+          <ImagePlus aria-hidden="true" />
+          <span>Modifier</span>
+          <input type="file" accept="image/*" onChange={(event) => changeCardImage(key, event.target.files?.[0])} />
+        </label>}
+      </>
+    )
   }
 
   return (
@@ -70,7 +88,7 @@ export default function Page() {
         </div>
         <div className="hero-photo-wrap">
           <div className="hero-photo-frame">
-            <img src={photos[0]} alt="Melissa souriante" />
+            {editableImage('hero', photos[0], 'Melissa souriante')}
           </div>
           <span className="photo-note">la plus belle<br />de mes habitudes</span>
         </div>
@@ -85,7 +103,7 @@ export default function Page() {
         <div className="vertical-gallery" aria-label="Galerie de souvenirs">
           {photos.slice(1, 7).map((photo, index) => (
             <figure className={`memory-card ${index % 3 === 1 ? 'memory-card-offset' : ''}`} key={photo}>
-              <img src={photo} alt={captions[index + 1]} loading="lazy" />
+              {editableImage(`gallery-${index}`, photo, captions[index + 1], 'lazy')}
               <figcaption><span>0{index + 1}</span>{captions[index + 1]}</figcaption>
             </figure>
           ))}
@@ -93,7 +111,7 @@ export default function Page() {
       </section>
 
       <section className="doctor-panel snap-section">
-        <div className="doctor-image"><img src={photos[7]} alt="Melissa, médecin" loading="lazy" /><span className="doctor-stamp"><Stethoscope aria-hidden="true" /> soigner · aimer · transmettre</span></div>
+        <div className="doctor-image">{editableImage('doctor', photos[7], 'Melissa, médecin', 'lazy')}<span className="doctor-stamp"><Stethoscope aria-hidden="true" /> soigner · aimer · transmettre</span></div>
         <div className="doctor-copy"><p className="eyebrow">Ce que j’admire chez toi</p><h2>Un cœur<br /><em>qui soigne.</em></h2><p>Tu as choisi de prendre soin des autres. De ta famille, de tes amis, de tes patients. Ta vocation est belle parce qu’elle te ressemble : généreuse, attentive et profondément humaine.</p><div className="rule" /><p className="small-note">À la femme, à la médecin,<br />à la maman et à mon amour.</p></div>
       </section>
 
@@ -102,13 +120,8 @@ export default function Page() {
         <div className="memory-frame-grid" aria-label="Sélection de souvenirs de Melissa">
           {[{ photo: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-oteigtJnPDUy27cNXiGUQDC2rpepMm.png', caption: 'Nous deux, dans notre plus belle complicité.' }, { photo: photos[13], caption: 'Entourés de ceux qui nous aiment.' }, { photo: photos[14], caption: 'Petite déjà, avec ce sourire unique.' }, { photo: photos[15], caption: 'Une enfance pleine de malice.' }, { photo: photos[16], caption: 'La médecin au grand cœur.' }, { photo: photos[17], caption: 'Notre petit trésor.' }].map((memory, index) => (
             <figure className={`framed-memory framed-memory-${index + 1}`} key={memory.caption}>
-              <div className="frame-image"><img src={customImages[index] ?? memory.photo} alt={memory.caption} loading="lazy" /></div>
+              <div className="frame-image">{editableImage(`frame-${index}`, memory.photo, memory.caption, 'lazy')}</div>
               <figcaption>{memory.caption}</figcaption>
-              <label className="image-picker">
-                <ImagePlus aria-hidden="true" />
-                <span>Changer la photo</span>
-                <input type="file" accept="image/*" onChange={(event) => changeCardImage(index, event.target.files?.[0])} />
-              </label>
             </figure>
           ))}
         </div>
@@ -116,7 +129,7 @@ export default function Page() {
 
       <section className="final-panel snap-section" id="letter">
         <div className="final-content"><div className="heart-orbit"><Heart aria-hidden="true" fill="currentColor" /></div><p className="eyebrow">Depuis 9 ans</p><h2>Joyeux<br /><em>anniversaire.</em></h2><p className="final-message">Que cette nouvelle année t’offre autant de bonheur, de douceur et de lumière que tu en donnes autour de toi. Je serai là pour chaque prochaine aventure.</p><p className="signature">Pour toujours, <span>ton amour</span></p></div>
-        <div className="final-photo"><img src={photos[11]} alt="Un souvenir heureux de Melissa" loading="lazy" /><span>avec tout mon amour</span></div>
+        <div className="final-photo">{editableImage('final', photos[11], 'Un souvenir heureux de Melissa', 'lazy')}<span>avec tout mon amour</span></div>
         <p className="footer-mark">M × M · 2017 — ∞</p>
       </section>
     </main>
