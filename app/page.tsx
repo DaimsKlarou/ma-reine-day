@@ -1,5 +1,6 @@
 'use client'
 
+import type { CSSProperties } from 'react'
 import { ChevronDown, Heart, Stethoscope } from 'lucide-react'
 
 const photos = [
@@ -15,6 +16,12 @@ const photos = [
   '/melissa/WhatsApp Image 2026-10-02 at 8.04.04 PM (3).jpeg',
   '/melissa/WhatsApp Image 2026-10-02 at 8.04.05 PM.jpeg',
   '/melissa/WhatsApp Image 2026-10-02 at 8.04.05 PM (1).jpeg',
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-p30zg1aWYXm31yrQVhjmHD2XmK5l95.png',
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-8PurKjyk5PJOWrGeB8oXChRsBEpSnv.png',
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-oDu1n3EyXGnFUduKRm4xZ0NdpQIWQ3.png',
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-j51XjvGeKBZK5pM2AOq2AmImV3ZOvc.png',
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-snkAyzmLgxhzpHAuNHAg3bkHxDMd6O.png',
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-4w7yONaq58DHkmcblHhd49p4RpmZvJ.png',
 ]
 
 const captions = [
@@ -30,6 +37,12 @@ const captions = [
   'Une nouvelle page, la même merveilleuse aventure.',
   'Je t’aime pour tout ce que tu es et tout ce que tu deviens.',
   'Joyeux anniversaire, mon amour.',
+  'Les racines d’une femme magnifique, déjà pleine de lumière.',
+  'La famille, les liens qui rendent chaque bonheur plus grand.',
+  'Avant nous, il y avait déjà ce sourire qui illuminait tout.',
+  'Une enfance tendre, et le début d’une belle histoire.',
+  'La femme que j’aime, dans son quotidien, avec sa douceur.',
+  'Notre petit trésor, la plus belle preuve de notre amour.',
 ]
 
 export default function Page() {
@@ -69,6 +82,14 @@ export default function Page() {
       <section className="doctor-panel snap-section">
         <div className="doctor-image"><img src={photos[7]} alt="Melissa, médecin" loading="lazy" /><span className="doctor-stamp"><Stethoscope aria-hidden="true" /> soigner · aimer · transmettre</span></div>
         <div className="doctor-copy"><p className="eyebrow">Ce que j’admire chez toi</p><h2>Un cœur<br /><em>qui soigne.</em></h2><p>Tu as choisi de prendre soin des autres. De ta famille, de tes amis, de tes patients. Ta vocation est belle parce qu’elle te ressemble : généreuse, attentive et profondément humaine.</p><div className="rule" /><p className="small-note">À la femme, à la médecin,<br />à la maman et à mon amour.</p></div>
+      </section>
+
+      <section className="film-panel snap-section" id="film">
+        <div className="film-heading"><p className="eyebrow">Notre film à nous</p><h2>Un album<br /><em>qui défile.</em></h2><p>Appuie sur lecture et laisse les souvenirs raconter notre histoire.</p></div>
+        <div className="photo-film" aria-label="Montage animé de nos souvenirs">
+          {[photos[12], photos[14], photos[13], photos[15], photos[16], photos[17]].map((photo, index) => <img key={photo} src={photo} alt={captions[index + 12]} style={{ '--film-delay': `${index * 2.4}s` } as CSSProperties} />)}
+          <div className="film-controls"><span className="play-dot">▶</span><span>Joyeux anniversaire, Melissa</span><span>09:00</span></div>
+        </div>
       </section>
 
       <section className="final-panel snap-section" id="letter">
