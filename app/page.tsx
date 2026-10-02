@@ -86,7 +86,7 @@ export default function Page() {
       <section className="film-panel snap-section" id="film">
         <div className="film-heading"><p className="eyebrow">Nos souvenirs précieux</p><h2>Des images<br /><em>qui restent.</em></h2><p>Quelques instants choisis pour raconter la femme, la maman et l’amour de ma vie.</p></div>
         <div className="memory-frame-grid" aria-label="Sélection de souvenirs de Melissa">
-          {[{ photo: '/melissa/WhatsApp Image 2026-10-02 at 8.04.05 PM.jpeg', caption: 'Nous deux, dans notre plus belle complicité.' }, { photo: photos[13], caption: 'Entourés de ceux qui nous aiment.' }, { photo: photos[14], caption: 'Petite déjà, avec ce sourire unique.' }, { photo: photos[15], caption: 'Une enfance pleine de malice.' }, { photo: photos[16], caption: 'La médecin au grand cœur.' }, { photo: photos[17], caption: 'Notre petit trésor.' }].map((memory, index) => (
+          {[{ photo: '/melissa/WhatsApp Image 2026-10-02 at 8.04.05 PM (2).jpeg', caption: 'Nous deux, dans notre plus belle complicité.' }, { photo: photos[13], caption: 'Entourés de ceux qui nous aiment.' }, { photo: photos[14], caption: 'Petite déjà, avec ce sourire unique.' }, { photo: photos[15], caption: 'Une enfance pleine de malice.' }, { photo: photos[16], caption: 'La médecin au grand cœur.' }, { photo: photos[17], caption: 'Notre petit trésor.' }].map((memory, index) => (
             <figure className={`framed-memory framed-memory-${index + 1}`} key={memory.photo}>
               <div className="frame-image"><img src={memory.photo} alt={memory.caption} loading="lazy" /></div>
               <figcaption>{memory.caption}</figcaption>
