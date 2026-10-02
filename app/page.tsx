@@ -1,6 +1,5 @@
 'use client'
 
-import type { CSSProperties } from 'react'
 import { ChevronDown, Heart, Stethoscope } from 'lucide-react'
 
 const photos = [
@@ -85,10 +84,14 @@ export default function Page() {
       </section>
 
       <section className="film-panel snap-section" id="film">
-        <div className="film-heading"><p className="eyebrow">Notre film à nous</p><h2>Un album<br /><em>qui défile.</em></h2><p>Appuie sur lecture et laisse les souvenirs raconter notre histoire.</p></div>
-        <div className="photo-film" aria-label="Montage animé de nos souvenirs">
-          {[photos[12], photos[14], photos[13], photos[15], photos[16], photos[17]].map((photo, index) => <img key={photo} src={photo} alt={captions[index + 12]} style={{ '--film-delay': `${index * 2.4}s` } as CSSProperties} />)}
-          <div className="film-controls"><span className="play-dot">▶</span><span>Joyeux anniversaire, Melissa</span><span>09:00</span></div>
+        <div className="film-heading"><p className="eyebrow">Nos souvenirs précieux</p><h2>Des images<br /><em>qui restent.</em></h2><p>Quelques instants choisis pour raconter la femme, la maman et l’amour de ma vie.</p></div>
+        <div className="memory-frame-grid" aria-label="Sélection de souvenirs de Melissa">
+          {[{ photo: photos[12], caption: 'La famille, notre plus beau refuge.' }, { photo: photos[13], caption: 'Entourés de ceux qui nous aiment.' }, { photo: photos[14], caption: 'Petite déjà, avec ce sourire unique.' }, { photo: photos[15], caption: 'Une enfance pleine de malice.' }, { photo: photos[16], caption: 'La médecin au grand cœur.' }, { photo: photos[17], caption: 'Notre petit trésor.' }].map((memory, index) => (
+            <figure className={`framed-memory framed-memory-${index + 1}`} key={memory.photo}>
+              <div className="frame-image"><img src={memory.photo} alt={memory.caption} loading="lazy" /></div>
+              <figcaption>{memory.caption}</figcaption>
+            </figure>
+          ))}
         </div>
       </section>
 

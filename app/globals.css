@@ -64,11 +64,16 @@ h1 em, h2 em { color: var(--rose); font-style: italic; }
 .film-panel { align-items: center; background: #2e2927; color: #fff8f4; display: grid; gap: 9%; grid-template-columns: .8fr 1.2fr; padding: 12vw 10vw; }
 .film-heading h2 { color: #fff8f4; font-size: clamp(4rem, 8vw, 7rem); margin: 1.2rem 0 2rem; }
 .film-heading p:not(.eyebrow) { color: #dbc9c1; font-family: Georgia, serif; line-height: 1.6; max-width: 250px; }
-.photo-film { aspect-ratio: 16 / 10; background: #171414; overflow: hidden; position: relative; }
-.photo-film img { animation: film-reel 14.4s infinite; animation-delay: var(--film-delay); height: 100%; left: 0; object-fit: cover; opacity: 0; position: absolute; top: 0; width: 100%; }
-.film-controls { align-items: center; background: linear-gradient(transparent, rgba(0,0,0,.8)); bottom: 0; display: flex; font-size: .62rem; gap: .8rem; justify-content: space-between; letter-spacing: .1em; padding: 2.6rem 1.2rem .9rem; position: absolute; text-transform: uppercase; width: 100%; }
-.play-dot { align-items: center; background: var(--rose); border-radius: 50%; display: flex; font-size: .55rem; height: 25px; justify-content: center; padding-left: 2px; width: 25px; }
-@keyframes film-reel { 0%, 15% { opacity: 0; transform: scale(1.04); } 20%, 75% { opacity: 1; transform: scale(1); } 85%, 100% { opacity: 0; transform: scale(1.02); } }
+.memory-frame-grid { align-items: start; display: grid; gap: 2.2rem 1.5rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.framed-memory { background: #fffaf6; box-shadow: 0 20px 40px rgba(0,0,0,.22); padding: .75rem .75rem 1.2rem; transform: rotate(-2deg); }
+.framed-memory:nth-child(even) { transform: rotate(2.5deg); }
+.framed-memory-3 { transform: rotate(3deg); }
+.framed-memory-4 { transform: rotate(-3deg); }
+.frame-image { aspect-ratio: 4 / 5; overflow: hidden; }
+.frame-image img { height: 100%; object-fit: cover; width: 100%; }
+.framed-memory figcaption { color: #584844; font-family: Georgia, serif; font-size: .72rem; line-height: 1.35; padding: .8rem .2rem 0; }
+.framed-memory-6 .frame-image { aspect-ratio: 4 / 3; }
+@media (min-width: 681px) { .memory-frame-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .framed-memory-2, .framed-memory-5 { margin-top: 2rem; } }
 
 .final-panel { align-items: center; display: grid; gap: 11%; grid-template-columns: 1.05fr .95fr; padding: 10vw; }
 .final-content { position: relative; }
